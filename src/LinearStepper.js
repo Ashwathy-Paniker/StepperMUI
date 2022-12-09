@@ -163,20 +163,14 @@ function getStepContent(step) {
   }
 }
 
-const LinaerStepper = () => {
+const LinearStepper = () => {
   const c = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
   const steps = getSteps();
 
-  const isStepOptional = (step) => {
-    return step === 1 || step === 2;
-  };
-
-  const isStepSkipped = (step) => {
-    return skippedSteps.includes(step);
-  };
-
+ 
+ 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
     setSkippedSteps(skippedSteps.filter((skipItem) => skipItem !== activeStep));
@@ -186,42 +180,20 @@ const LinaerStepper = () => {
     setActiveStep(activeStep - 1);
   };
 
-  const handleSkip = () => {
-    if (!isStepSkipped(activeStep)) {
-      setSkippedSteps([...skippedSteps, activeStep]);
-    }
-    setActiveStep(activeStep + 1);
-  };
+ 
 
   return (
     <div>
       <Stepper alternativeLabel activeStep={activeStep} className={c.root}>
-        {steps.map((step, index) => {
-          const labelProps = {};
-          const stepProps = {};
-          if (isStepOptional(index)) {
-            labelProps.optional = (
-              <Typography
-                variant="caption"
-                align="center"
-                style={{ display: "block" }}
-              >
-                optional
-              </Typography>
-            );
-          }
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
+      {steps.map((step, index) => {
           return (
-            <Step {...stepProps} key={index}>
-              <StepLabel {...labelProps}>{step}</StepLabel>
+            <Step key={index}>
+              <StepLabel >{step}</StepLabel>
             </Step>
           );
         })}
       </Stepper>
-
-      {activeStep === steps.length ? (
+      {activeStep === 4 ? (
         <Typography variant="h3" align="center">
           Thank You
         </Typography>
@@ -230,28 +202,20 @@ const LinaerStepper = () => {
           <form>{getStepContent(activeStep)}</form>
           <Button
             className={c.button}
-            disabled={activeStep === 0}
-            onClick={handleBack}
-          >
-            back
-          </Button>
-          {isStepOptional(activeStep) && (
-            <Button
-              className={c.button}
-              variant="contained"
-              color="success"
-              onClick={handleSkip}
-            >
-              skip
-            </Button>
-          )}
-          <Button
-            className={c.button}
             variant="contained"
-            color="success"
+            color="primary"
+            onClick={handleBack}
+            disabled={activeStep === 0}
+          >
+            Back
+          </Button>
+          <Button
+            variant="contained"
+            className={c.button}
+            color="primary"
             onClick={handleNext}
           >
-            {activeStep === steps.length - 1 ? "Finish" : "Next"}
+            {activeStep == 3 ? "Finish" : "Next"}
           </Button>
         </>
       )}
@@ -259,4 +223,4 @@ const LinaerStepper = () => {
   );
 };
 
-export default LinaerStepper;
+export default LinearStepper;
