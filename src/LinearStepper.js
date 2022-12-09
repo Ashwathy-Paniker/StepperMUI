@@ -14,9 +14,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
   root: {
-    // "& .MuiStepIcon-active": { color: "red" },
-    "& .MuiStepIcon-completed": { color: "green" },
-    // "& .Mui-disabled .MuiStepIcon-root": { color: "cyan" }
+    "& .MuiStepIcon-completed": { color: "green" }
   }
 }));
 
